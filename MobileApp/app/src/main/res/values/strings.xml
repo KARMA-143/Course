@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MobileApp</string>
+    <string name="app_name">NextStep - Course App</string>
     <string name="login">Login</string>
     <string name="are_you_new_user_register">Are you new user? Register</string>
     <string name="searching">Searching</string>
