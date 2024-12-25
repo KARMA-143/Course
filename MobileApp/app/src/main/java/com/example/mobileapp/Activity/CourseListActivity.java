@@ -58,7 +58,7 @@ public class CourseListActivity extends AppCompatActivity {
     }
 
     private void sendHttpRequest() {
-        String url = "http://192.168.0.167:5000/api/courses"; // Замените на свой URL
+        String url = "http://192.168.0.167:5000/api/courses";
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -88,31 +88,24 @@ public class CourseListActivity extends AppCompatActivity {
             Gson gson = new Gson();
             JsonObject jsonObject = JsonParser.parseString(responseData).getAsJsonObject();
 
-            // Извлекаем массивы по ключам
             JsonArray coursesArray = jsonObject.getAsJsonArray("courses");
             JsonArray categoriesArray = jsonObject.getAsJsonArray("categories");
 
-            // Преобразуем JsonArray в List<CourseDomain>
             Type courseListType = new TypeToken<List<CourseDomain>>() {}.getType();
             ArrayList<CourseDomain> courseList = gson.fromJson(coursesArray, courseListType);
 
-            // Преобразуем JsonArray в List<CategoryDomain>
             Type categoryListType = new TypeToken<List<CategoryDomain>>() {}.getType();
             ArrayList<CategoryDomain> categoryList = gson.fromJson(categoriesArray, categoryListType);
 
-            // Используем данные на UI
             ArrayList<CategoryDomain> finalCategoryList = categoryList;
             runOnUiThread(() -> {
-                // Устанавливаем адаптер для курсов
                 CourseAdapter courseAdapter = new CourseAdapter(courseList);
                 binding.popularView.setAdapter(courseAdapter);
 
-                // Устанавливаем адаптер для категорий
                 CategoryAdapter categoryAdapter = new CategoryAdapter(finalCategoryList);
                 binding.categoryList.setAdapter(categoryAdapter);
 
-                // Отключаем прокрутку для категории
-                binding.categoryList.setNestedScrollingEnabled(false);  // Отключаем прокрутку
+                binding.categoryList.setNestedScrollingEnabled(false);
             });
         } catch (Exception e) {
             Log.e("CourseListActivity", "Error parsing JSON: " + e.getMessage());

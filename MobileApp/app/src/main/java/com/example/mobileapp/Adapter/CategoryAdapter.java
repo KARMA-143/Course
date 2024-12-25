@@ -36,8 +36,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public void onBindViewHolder(@NonNull CategoryAdapter.ViewHolder holder, int position) {
         CategoryDomain category = items.get(position);
         holder.titleText.setText(category.getName());
-
-        // Загрузка изображения с помощью Glide
         Glide.with(holder.categoryImg.getContext())
                 .load(category.getCategoryImg())
                 .into(holder.categoryImg);

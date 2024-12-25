@@ -50,7 +50,7 @@ public class CategoryListActivity extends AppCompatActivity {
         binding.categoryList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
     }
     private void sendHttpRequest(){
-        String url = "http://192.168.0.167:5000/api/categories"; // Замените на свой URL
+        String url = "http://192.168.0.167:5000/api/categories";
         Request request = new Request.Builder()
                 .url(url)
                 .build();

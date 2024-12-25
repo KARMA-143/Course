@@ -27,14 +27,11 @@ public class EntryActivity extends AppCompatActivity {
 
         String jwtToken = SharedPrefsHelper.getJwtToken(this);
 
-        // Проверяем валидность токена
         if (jwtToken != null && SharedPrefsHelper.isTokenValid(jwtToken)) {
-            // Если токен валиден, переходим на CourseListActivity
             Intent intent = new Intent(this, CourseListActivity.class);
             startActivity(intent);
             finish();
         } else if (jwtToken != null) {
-            // Если токен недействителен, удаляем его
             SharedPrefsHelper.clearJwtToken(this);
         }
 
