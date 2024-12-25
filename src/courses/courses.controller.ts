@@ -1,16 +1,23 @@
 import {Body, Controller, Delete, Get, Param, Post, Put} from '@nestjs/common';
 import {CoursesService} from "./courses.service";
 import {json} from "express";
+import {CategoriesService} from "../categories/categories.service";
 
 @Controller('courses')
 export class CoursesController {
 
-    constructor(private readonly coursesService: CoursesService) {}
+    constructor(private readonly coursesService: CoursesService, private readonly categoryService: CategoriesService) {}
+
+    private shuffleArray(array) {
+        return array.sort(() => Math.random() - 0.5);
+    }
 
     @Get()
     async getAll(): Promise<string> {
         const courses = await this.coursesService.findAll();
-        return JSON.stringify(courses);
+        let categories = await this.categoryService.findAll();
+        categories=this.shuffleArray(categories).slice(0,4);
+        return JSON.stringify({courses, categories});
     }
 
     @Get(':id')

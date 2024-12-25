@@ -9,6 +9,9 @@ import { TestsModule } from './tests/tests.module';
 import { FilesModule } from './files/files.module';
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {MongooseModule} from '@nestjs/mongoose'
+import {JwtModule} from "@nestjs/jwt";
+import { CategoriesModule } from './categories/categories.module';
+
 
 @Module({
   imports: [UsersModule, CoursesModule, LessonsModule, ArticlesModule, TestsModule, FilesModule, TypeOrmModule.forRoot({
@@ -24,7 +27,9 @@ import {MongooseModule} from '@nestjs/mongoose'
     MongooseModule.forRoot('mongodb://localhost:27017/education', {
       retryWrites: true,        // Включить автоматическое повторение записи в случае ошибки
       w: 'majority',
-    })],
+    }),
+    JwtModule,
+    CategoriesModule],
   controllers: [AppController],
   providers: [AppService],
 })

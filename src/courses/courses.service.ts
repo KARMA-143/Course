@@ -5,13 +5,24 @@ import {Repository} from "typeorm";
 
 @Injectable()
 export class CoursesService {
+    private baseUrl="http://192.168.0.167:5000/uploads";
     constructor(
         @InjectRepository(Courses)
         private coursesRepository: Repository<Courses>,
     ) {}
 
+    private mapCourseCoverPath(course: Courses): Courses {
+        if (course.courseCover) {
+            course.courseCover = `${this.baseUrl}/${course.courseCover}`;
+        }
+        return course;
+    }
+
     async findAll(): Promise<Courses[]> {
-        return this.coursesRepository.find();
+        let courses = await this.coursesRepository.find({
+            select:["id", "title", "owner", "price", "star","courseCover"]
+        });
+        return courses.map(course => this.mapCourseCoverPath(course));
     }
 
     async findOne(id: number): Promise<Courses> {

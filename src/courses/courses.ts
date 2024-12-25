@@ -10,6 +10,18 @@ export class Courses {
     @Column()
     title: string;
 
+    @Column()
+    owner: string;
+
+    @Column("float")
+    price: number;
+
+    @Column("float")
+    star: number;
+
+    @Column()
+    courseCover: string;
+
     @Column({nullable: true})
     description: string;
 
