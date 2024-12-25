@@ -26,16 +26,14 @@ export class UsersService {
     async login(email: string, password: string){
         const user = await this.usersRepository.findOne({ where: { email } });
         if (!user) {
-            throw new Error('Invalid credentials'); // Ошибка, если пользователь не найден
+            throw new Error('Invalid credentials');
         }
 
-        // Сравниваем введенный пароль с хешированным паролем из базы данных
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
-            throw new Error('Invalid credentials'); // Ошибка, если пароль не совпадает
+            throw new Error('Invalid credentials');
         }
 
-        // Генерируем JWT токен
         const payload = { username: user.name, sub: user.id };
         return {
             access_token: this.jwtService.sign(payload),

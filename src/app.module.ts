@@ -21,11 +21,11 @@ import { CategoriesModule } from './categories/categories.module';
     username: 'postgres',
     password: '1234',
     database: 'educationAppDB',
-    autoLoadEntities: true, // Автоматически подключать сущности
-    synchronize: true, // Синхронизация схемы (только для разработки)
+    autoLoadEntities: true,
+    synchronize: true,
   }),
     MongooseModule.forRoot('mongodb://localhost:27017/education', {
-      retryWrites: true,        // Включить автоматическое повторение записи в случае ошибки
+      retryWrites: true,
       w: 'majority',
     }),
     JwtModule,
